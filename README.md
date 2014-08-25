@@ -1,11 +1,11 @@
 HOW TO USE:
 
-******** Including library into the view controller:
+Including library into the view controller:
 
 #import "PMConnection.h"
 
 
-******** Sending synchronous request: 
+Sending synchronous request: 
 
 PMConnection *pm = [[PMConnection alloc] init];
     NSDictionary * testDict = @{
