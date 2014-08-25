@@ -14,24 +14,24 @@
 @interface PMConnection : NSObject
 
 // Request parameters
-@property (nonatomic, weak) NSDictionary *parameters;
+@property (nonatomic, strong) NSDictionary *parameters;
 
 // Request variables
-@property (nonatomic, weak) NSString *url;
-@property (nonatomic, weak) NSString *parametersWithString;
-@property (nonatomic, weak) NSString *method;
-@property (nonatomic, weak) NSString *requestDescription;
-@property (nonatomic, weak) NSString *requestJSONdata;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *parametersWithString;
+@property (nonatomic, strong) NSString *method;
+@property (nonatomic, strong) NSString *requestDescription;
+@property (nonatomic, strong) NSString *requestJSONdata;
 @property (retain, nonatomic) NSURLConnection *connection;
 
 // Response variables
-@property (nonatomic, weak) NSData *responseResult;
-@property (nonatomic, weak) NSString *responseString;
-@property (nonatomic, weak) NSArray *responseArray;
-@property (nonatomic, weak) NSDictionary *responseDictionary;
-@property (nonatomic, weak) id responseObject;
-@property (nonatomic, weak) NSData *responseData;
-@property (nonatomic, weak) NSString *responseStringRaw;
+@property (nonatomic, strong) NSData *responseResult;
+@property (nonatomic, strong) NSString *responseString;
+@property (nonatomic, strong) NSArray *responseArray;
+@property (nonatomic, strong) NSDictionary *responseDictionary;
+@property (nonatomic, strong) id responseObject;
+@property (nonatomic, strong) NSData *responseData;
+@property (nonatomic, strong) NSString *responseStringRaw;
 
 // Request methods
 -(void)sendRequestWithStringParameters;
