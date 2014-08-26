@@ -52,7 +52,7 @@
 
 
 //TO DO OR TO UPGRADE
--(void)generateJSONRequestWith:(NSDictionary *)dictionary toUrlWithString: (NSString *)stringUrl withMethod: (NSString *)method;
+-(void)generateJSONRequestWith:(NSDictionary *)dictionary toUrlWithString: (NSString *)stringUrl;
 - (NSString *) checkGUDCode;
 
 
