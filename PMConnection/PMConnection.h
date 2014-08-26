@@ -34,22 +34,26 @@
 @property (nonatomic, strong) NSString *responseStringRaw;
 
 // Request methods
--(void)sendRequestWithStringParameters;
--(void)sendRequestWithParameters;
--(void)sendRequestWithParameters:(NSDictionary *)parametersDictionary;
+
 -(void)sendRequestWithParameters:(NSDictionary *)parametersDictionary withMethod: (NSString *)method withStringURL: (NSString *)urlString;
 -(void)sendRequestWithParameters:(NSDictionary *)parametersDictionary withMethod: (NSString *)method withNSURL: (NSURL *)url;
-
--(void)generateJSONRequestWith:(NSDictionary *)dictionary toUrlWithString: (NSString *)stringUrl withMethod: (NSString *)method;
 -(void)loadContentsOfFileFromURLWithString:(NSString *)urlString;
+
 
 // Response handling methods
 - (void)responseObjectClass;
+
+
 
 // HELPING ADDITIONAL METHODS
 - (NSString *) md5:(NSString *)input;
 - (NSString *) encodeImageToBase64: (UIImage *)image;
 - (UIImage *) imageByScalingAndCroppingForSize:(CGSize)targetSize forImage:(UIImage *)sourceImage;
+
+
+//TO DO OR TO UPGRADE
+-(void)generateJSONRequestWith:(NSDictionary *)dictionary toUrlWithString: (NSString *)stringUrl withMethod: (NSString *)method;
 - (NSString *) checkGUDCode;
+
 
 @end
