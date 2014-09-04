@@ -94,7 +94,13 @@
 -(void)sendRequestWithParameters{
     
     NSString *recheckForPlusFilter = [[NSString alloc] init];
+    NSArray * parameterKeys = [[NSMutableArray alloc] init];
+    NSArray * parameterValues = [[NSMutableArray alloc] init];
     
+    parameterKeys = [self.parameters allKeys];
+    parameterValues = [self.parameters allValues];
+    
+    NSMutableString *preRequestString = [NSMutableString stringWithFormat:@""];
     
     if ([[parameterValues objectAtIndex:i] isKindOfClass:[NSString class]]){
         //NSLog(@"%@ je string klasa", [parameterKeys objectAtIndex:i]);
