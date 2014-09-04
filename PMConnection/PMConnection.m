@@ -102,6 +102,8 @@
     
     NSMutableString *preRequestString = [NSMutableString stringWithFormat:@""];
     
+    for (int i=0; i< [parameterKeys count]; i++) {
+    
     if ([[parameterValues objectAtIndex:i] isKindOfClass:[NSString class]]){
         //NSLog(@"%@ je string klasa", [parameterKeys objectAtIndex:i]);
         recheckForPlusFilter = [[parameterValues objectAtIndex:i] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
@@ -122,6 +124,7 @@
         }else{
             [preRequestString appendString:[NSString stringWithFormat:@"&%@", keyAndValue]];
         }
+    }
     }
     
     //NSLog(@"PARAMETERS FOR REQUEST: %@", preRequestString);
