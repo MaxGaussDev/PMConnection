@@ -370,51 +370,51 @@
 
 -(void)generateJSONRequestWith:(NSDictionary *)dictionary toUrlWithString: (NSString *)stringUrl{
     
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                         error:&error];
-    if (! jsonData) {
-        NSLog(@"Got an error while generating JSON: %@", error);
-    } else {
-        
-        self.method = @"POST";
-        
-        NSString *jsonRequestString = jsonData.description;
-        NSData *requestData = [NSData dataWithBytes:[jsonRequestString UTF8String] length:[jsonRequestString length]];
-        NSURL *url = [NSURL URLWithString:stringUrl];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.url]];
-        NSString *params = self.parametersWithString;
-
-        [request setHTTPMethod:self.method];
-        [request setHTTPBody:requestData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"%d",[requestData length]] forHTTPHeaderField:@"Content-Length"];
-        
-        
-        NSURLResponse* response;
-        NSError* error = nil;
-        
-        //Capturing server response
-        self.responseResult = [NSURLConnection sendSynchronousRequest:request  returningResponse:&response error:&error];
-        self.responseData = self.responseResult;
-        NSString *rawString = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
-        self.responseStringRaw = rawString;
-        
-        //RESOLVE JSON XML
-        if ([response.MIMEType hasPrefix:@"application/xml"]) {
-            // NSLog(@"XML");
-            [self manageXMLResponse];
-        }else if ([response.MIMEType hasPrefix:@"application/json"]){
-            // NSLog(@"JSON");
-            [self manageJSONResponse];
-        }else{
-            NSLog(@"Wrong document header = %@", response.MIMEType);
-        }
-        
-    }
+//    NSError *error;
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary
+//                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+//                                                         error:&error];
+//    if (! jsonData) {
+//        NSLog(@"Got an error while generating JSON: %@", error);
+//    } else {
+//        
+//        self.method = @"POST";
+//        
+//        NSString *jsonRequestString = jsonData.description;
+//        NSData *requestData = [NSData dataWithBytes:[jsonRequestString UTF8String] length:[jsonRequestString length]];
+//        NSURL *url = [NSURL URLWithString:stringUrl];
+//        
+//        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+//        NSString *params = self.parametersWithString;
+//
+//        [request setHTTPMethod:self.method];
+//        [request setHTTPBody:requestData];
+//        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//        [request setValue:[NSString stringWithFormat:@"%d",[requestData length]] forHTTPHeaderField:@"Content-Length"];
+//        
+//        
+//        NSURLResponse* response;
+//        NSError* error = nil;
+//        
+//        //Capturing server response
+//        self.responseResult = [NSURLConnection sendSynchronousRequest:request  returningResponse:&response error:&error];
+//        self.responseData = self.responseResult;
+//        NSString *rawString = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
+//        self.responseStringRaw = rawString;
+//        
+//        //RESOLVE JSON XML
+//        if ([response.MIMEType hasPrefix:@"application/xml"]) {
+//            // NSLog(@"XML");
+//            [self manageXMLResponse];
+//        }else if ([response.MIMEType hasPrefix:@"application/json"]){
+//            // NSLog(@"JSON");
+//            [self manageJSONResponse];
+//        }else{
+//            NSLog(@"Wrong document header = %@", response.MIMEType);
+//        }
+//        
+//    }
 }
 
 @end
