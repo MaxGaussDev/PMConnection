@@ -93,16 +93,22 @@
 
 -(void)sendRequestWithParameters{
     
-    NSArray * parameterKeys = [[NSMutableArray alloc] init];
-    NSArray * parameterValues = [[NSMutableArray alloc] init];
+    NSString *recheckForPlusFilter = [[NSString alloc] init];
     
-    parameterKeys = [self.parameters allKeys];
-    parameterValues = [self.parameters allValues];
     
-    NSMutableString *preRequestString = [NSMutableString stringWithFormat:@""];
-    
-    for (int i=0; i< [parameterKeys count]; i++) {
+    if ([[parameterValues objectAtIndex:i] isKindOfClass:[NSString class]]){
+        //NSLog(@"%@ je string klasa", [parameterKeys objectAtIndex:i]);
+        recheckForPlusFilter = [[parameterValues objectAtIndex:i] stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+        //NSLog(@"%@ :: %@", [parameterKeys objectAtIndex:i], [parameterValues objectAtIndex:i]);
+        NSString *keyAndValue = [NSString stringWithFormat:@"%@=%@", [parameterKeys objectAtIndex:i], recheckForPlusFilter];
+        if (i==0) {
+            [preRequestString appendString:keyAndValue];
+        }else{
+            [preRequestString appendString:[NSString stringWithFormat:@"&%@", keyAndValue]];
+        }
         
+    }else{
+        //NSLog(@"%@ nije string klasa", [parameterKeys objectAtIndex:i]);
         //NSLog(@"%@ :: %@", [parameterKeys objectAtIndex:i], [parameterValues objectAtIndex:i]);
         NSString *keyAndValue = [NSString stringWithFormat:@"%@=%@", [parameterKeys objectAtIndex:i], [parameterValues objectAtIndex:i]];
         if (i==0) {
