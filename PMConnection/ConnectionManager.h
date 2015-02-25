@@ -42,13 +42,14 @@
 -(void)cacheResponse:(NSData *)responseData forURLRequest:(NSURL *)urlRequest;
 -(BOOL)checkForCachedResponseForURLRequest:(NSURL *)urlRequest;
 -(NSData *)cachedDataForURLRequest:(NSURL *)urlRequest;
+-(BOOL)removeCachedDataForURLRequestWithString:(NSString *)urlRequest;
 
-// image caching
+#pragma mark caching
 -(UIImage *)cachedImageForURLRequest:(NSURL *)imgURL;
 -(UIImage *)fetchImageWithCacheFromURLWithString:(NSString *)urlString;
 -(UIImage *)fetchImageWithCacheFromURL:(NSURL *)imgURL;
 
-// chache managing and maintenance
+#pragma mark managing and maintenance
 -(NSString *)cacheDirectory;
 -(void)clearCache;
 -(float)cacheSize;

@@ -8,6 +8,7 @@
 
 #import "ConnectionManager.h"
 
+
 @implementation ConnectionManager
 
 static ConnectionManager *sharedConnection = nil;
@@ -174,6 +175,49 @@ static ConnectionManager *sharedConnection = nil;
     return data;
 }
 
+
+-(BOOL)removeCachedDataForURLRequestWithString:(NSString *)urlRequest{
+
+    BOOL check = FALSE;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *cachedarray = [NSMutableArray arrayWithArray:[defaults objectForKey:@"pmCache"]];
+    NSMutableArray *cachedarrayToDelete = [NSMutableArray arrayWithArray:cachedarray];
+    
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    for(NSDictionary *tmp_cache_data in cachedarray){
+        if([[tmp_cache_data valueForKey:@"requestURL"] isEqualToString:urlRequest]){
+            
+            NSString *localfilename = [tmp_cache_data valueForKey:@"name"];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:localfilename];
+            
+            if(![[NSFileManager defaultManager] fileExistsAtPath:dataPath]){
+                // if there is no file, remove log from cache data
+                NSLog(@"File found in cache log, but not on disc, clearing cache record log");
+                [cachedarrayToDelete removeObject:tmp_cache_data];
+                check = TRUE;
+            }else{
+                // if the file exsists, delete it and remove record from the data dictionary
+                NSLog(@"File found, deleteing and clearing cache record log");
+                [[NSFileManager defaultManager] removeItemAtPath:dataPath error:nil];
+                [cachedarrayToDelete removeObject:tmp_cache_data];
+                check = TRUE;
+            }
+        }else{
+            // request isn't in the cache records log
+            NSLog(@"Request not found in the cache data log. - %@", urlRequest);
+        }
+    } //});
+    
+    cachedarray = cachedarrayToDelete;
+    
+    [defaults setObject:cachedarray forKey:@"pmCache"];
+    [defaults synchronize];
+    
+    return check;
+}
 
 #pragma mark image chaching methods
 
